@@ -26,17 +26,3 @@ services:
       - '80:80'
     depends_on:
       - backend
- 
-  # db:
-#     container_name: hms-db
-#     image: mcr.microsoft.com/azure-sql-edge:latest
-#     environment:
-#       - ACCEPT_EULA=Y
-#       - SA_PASSWORD=YourStrong!Passw0rd
-#     ports:
-#       - "1433:1433"
-#     volumes:
-#       - sqldata:/var/opt/mssql
-#       - ./init.sql:/var/opt/mssql/init/01-init.sql
-# volumes:
-#   sqldata:
