@@ -4,15 +4,15 @@ services:
     build:
       context: ./mroh-rfs-backend
       dockerfile: Dockerfile
-      # args:
-        # - DB_HOST=${DB_HOST}
-        # - DB_NAME=${DB_NAME}
-        # - DB_USERNAME=${DB_USERNAME}
-        # - DB_PASSWORD=${DB_PASSWORD}
-        # - TENANT_UUID=${TENANT_UUID}
-        # - CLIENT_UUID=${CLIENT_UUID}
-        # - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
-    # env_file: ./mroh-rfs-backend/.env
+      args:
+        - DB_HOST=${DB_HOST}
+        - DB_NAME=${DB_NAME}
+        - DB_USERNAME=${DB_USERNAME}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - TENANT_UUID=${TENANT_UUID}
+        - CLIENT_UUID=${CLIENT_UUID}
+        - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+    env_file: ./mroh-rfs-backend/.env
     ports:
       - "8085:8085"
  
