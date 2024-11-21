@@ -1,0 +1,34 @@
+services:
+  db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: hms-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
+    #   - ./mroh-rfs-backend/database_setup:/database_setup
+    # entrypoint: /bin/bash -c "/opt/mssql/bin/sqlservr & /database_setup/setup_sqlserver.sh && tail -f /dev/null"
+
+  backend:
+    container_name: hms-backend
+    build:
+      context: ./mroh-rfs-backend
+      dockerfile: Dockerfile
+      args:
+        - DB_HOST=${DB_HOST}
+        - DB_NAME=${DB_NAME}
+        - DB_USERNAME=${DB_USERNAME}
+        - DB_PASSWORD=${DB_PASSWORD}
+        - TENANT_UUID=${TENANT_UUID}
+        - CLIENT_UUID=${CLIENT_UUID}
+        - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+    env_file: ./mroh-rfs-backend/.env
+    ports:
+      - "8085:8085"
+    depends_on:
+      - db
+volumes:
+  sqldata:
